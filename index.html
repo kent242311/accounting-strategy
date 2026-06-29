@@ -6,229 +6,305 @@
 <title>广深会计运营策略规划 | 亿企赢</title>
 <style>
   :root {
-    --ink: #1b1c1e;
-    --ink-light: #3c3f44;
-    --bg: #f5f4f1;
-    --surface: #ffffff;
-    --gold: #b8944b;
-    --gold-light: #d4b76a;
-    --gold-pale: #faf6ee;
-    --gold-border: #e5d5b0;
-    --navy: #1e2b3c;
-    --navy-light: #33475b;
-    --slate: #5f6b7a;
-    --slate-light: #8e99a6;
-    --border: #e5e0d8;
-    --success: #4a8c6f;
-    --warning: #c7853a;
-    --radius: 6px;
-    --radius-lg: 10px;
-    --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    --bg: #080808;
+    --bg-card: #0f0f0f;
+    --bg-card-hover: #141414;
+    --bg-nav: rgba(8,8,8,0.94);
+    --gold: #d4af37;
+    --gold-bright: #e8c84a;
+    --gold-dim: #a0842a;
+    --gold-pale: rgba(212,175,55,0.06);
+    --gold-border: rgba(212,175,55,0.15);
+    --gold-border-hover: rgba(212,175,55,0.3);
+    --warm: #f5f0e0;
+    --warm-hi: #fffdf5;
+    --warm-mid: #d4c9a8;
+    --warm-lo: #a8996a;
+    --warm-dim: #6b5d3e;
+    --warm-deep: #3d3420;
+    --success: #4ade80;
+    --warning: #f59e0b;
+    --radius: 4px;
+    --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   * { margin:0; padding:0; box-sizing:border-box; }
+
   body {
     font-family: "PingFang SC", "Microsoft YaHei", -apple-system, BlinkMacSystemFont, sans-serif;
-    background: var(--bg);
-    color: var(--ink);
-    line-height: 1.75;
-    font-size: 15px;
-    -webkit-font-smoothing: antialiased;
+    background: var(--bg); color: var(--warm); line-height: 1.75; font-size: 15px;
+    -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  }
+  body::before {
+    content:''; position:fixed; inset:0; z-index:-1; pointer-events:none;
+    background: radial-gradient(circle, var(--gold-pale) 1px, transparent 1px);
+    background-size: 36px 36px;
   }
 
   /* ----- NAV ----- */
   nav {
     position:fixed; top:0; left:0; right:0; z-index:100;
-    background: rgba(27,28,30,0.95); backdrop-filter: blur(14px);
-    height:48px; display:flex; align-items:center; padding:0 32px; gap:28px;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
+    background: var(--bg-nav); backdrop-filter: blur(24px) saturate(180%);
+    height:54px; display:flex; align-items:center; padding:0 44px; gap:36px;
+    border-bottom: 1px solid rgba(245,240,224,0.04);
   }
-  nav .logo { color:#fff; font-weight:600; font-size:14px; letter-spacing:0.3px; }
-  nav a { color:rgba(255,255,255,0.62); text-decoration:none; font-size:12.5px; transition:color var(--transition); }
-  nav a:hover { color:#fff; }
+  nav .logo { color:var(--warm-hi); font-weight:600; font-size:14px; letter-spacing:0.6px; }
+  nav a {
+    color: var(--warm-mid); text-decoration:none; font-size:12px; transition:color var(--transition);
+    position:relative; padding:4px 0;
+  }
+  nav a:hover { color: var(--gold); }
+  nav a::after {
+    content:''; position:absolute; bottom:0; left:0; right:0; height:1px;
+    background:var(--gold); transform:scaleX(0); transition:transform 0.3s;
+  }
+  nav a:hover::after { transform:scaleX(1); }
+
+  /* ----- SCROLL ----- */
+  .fade-in { opacity:0; transform:translateY(30px); transition: opacity 0.9s ease, transform 0.9s ease; }
+  .fade-in.visible { opacity:1; transform:translateY(0); }
 
   /* ----- HERO ----- */
   .hero {
-    margin-top:48px; background: var(--navy); color:#fff;
-    padding:72px 56px 64px; text-align:center; position:relative; overflow:hidden;
+    margin-top:54px; padding:120px 56px 100px; text-align:center;
+    background: var(--bg); color:var(--warm-hi); position:relative; overflow:hidden;
   }
   .hero::before {
     content:''; position:absolute; inset:0;
-    background: radial-gradient(ellipse 70% 50% at 50% 100%, rgba(184,148,75,0.15) 0%, transparent 70%),
-                radial-gradient(ellipse 50% 60% at 80% 20%, rgba(255,255,255,0.03) 0%, transparent 60%);
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 100%, rgba(212,175,55,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 30% 50% at 85% 10%, rgba(212,175,55,0.04) 0%, transparent 50%),
+      radial-gradient(ellipse 25% 40% at 10% 80%, rgba(212,175,55,0.03) 0%, transparent 50%);
+  }
+  .hero .ring { position:absolute; border-radius:50%; border:1px solid var(--gold-border); }
+  .hero .ring-1 { width:640px; height:640px; top:-240px; right:-180px; }
+  .hero .ring-2 { width:420px; height:420px; top:-80px; right:40px; border-color:rgba(212,175,55,0.08); }
+  .hero .dot {
+    position:absolute; width:3px; height:3px; border-radius:50%; background:rgba(212,175,55,0.35);
   }
   .hero .overline {
-    font-size:11px; letter-spacing:2.5px; text-transform:uppercase;
-    color: var(--gold-light); margin-bottom:20px; position:relative;
+    font-size:11px; letter-spacing:4px; text-transform:uppercase;
+    color:var(--gold-dim); margin-bottom:36px; position:relative; font-weight:500;
   }
-  .hero h1 { font-size:38px; font-weight:700; letter-spacing:1px; margin-bottom:16px; position:relative; }
+  .hero h1 {
+    font-size:52px; font-weight:700; letter-spacing:2px; margin-bottom:0;
+    position:relative; line-height:1.2; color:var(--warm-hi);
+  }
+  .hero h1 .accent { color: var(--gold-bright); }
+  .hero .gold-line {
+    width:64px; height:1px; background:var(--gold); margin:28px auto 32px; position:relative; opacity:0.9;
+  }
   .hero .lead {
-    font-size:16px; opacity:0.78; line-height:1.8; max-width:620px; margin:0 auto 24px; position:relative;
-    font-weight:300;
+    font-size:17px; color:var(--warm-mid); line-height:1.85; max-width:680px;
+    margin:0 auto 36px; position:relative; font-weight:300;
   }
-  .hero .lead strong { color: var(--gold-light); font-weight:500; }
-  .hero .meta { font-size:12.5px; opacity:0.5; position:relative; }
+  .hero .lead strong { color: var(--gold); font-weight:500; }
+  .hero .meta { font-size:13px; color:var(--warm-dim); position:relative; letter-spacing:1px; }
 
   /* ----- LAYOUT ----- */
-  .container { max-width:1040px; margin:0 auto; padding:0 28px; }
-
-  section { margin:52px 0; }
+  .container { max-width:1080px; margin:0 auto; padding:0 36px; }
+  section { margin:80px 0; }
 
   /* ----- SECTION HEADER ----- */
-  .section-head { margin-bottom:28px; }
+  .section-head { margin-bottom:36px; }
   .section-head .num {
-    font-size:11px; letter-spacing:2px; text-transform:uppercase;
-    color: var(--gold); margin-bottom:6px; font-weight:600;
+    font-size:11px; letter-spacing:3px; text-transform:uppercase;
+    color:var(--gold-dim); margin-bottom:10px; font-weight:600;
   }
-  .section-head h2 { font-size:24px; font-weight:700; color:var(--ink); letter-spacing:0.5px; }
-  .section-head p.sub { font-size:14px; color:var(--slate); margin-top:6px; }
+  .section-head h2 {
+    font-size:28px; font-weight:700; color:var(--warm-hi); letter-spacing:0.5px; line-height:1.3;
+  }
+  .section-head h2::before {
+    content:''; display:inline-block; width:3px; height:20px; background:var(--gold);
+    margin-right:14px; vertical-align:middle;
+  }
+  .section-head p.sub { font-size:14px; color:var(--warm-mid); margin-top:10px; margin-left:20px; }
 
   /* ----- CARDS ----- */
   .card {
-    background:var(--surface); border-radius:var(--radius-lg);
-    padding:32px 36px; box-shadow:0 1px 2px rgba(0,0,0,0.04);
-    border:1px solid var(--border); margin-bottom:20px;
+    background:var(--bg-card); border-radius:var(--radius);
+    padding:38px 44px; border:1px solid rgba(245,240,224,0.04);
+    margin-bottom:20px; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position:relative;
   }
-  .card h3 { font-size:17px; font-weight:700; margin-bottom:14px; color:var(--ink); }
-  .card h4 { font-size:15px; font-weight:600; margin:18px 0 8px; color:var(--ink-light); }
-  .card p { color:var(--slate); margin-bottom:10px; line-height:1.75; }
+  .card:hover {
+    background:var(--bg-card-hover);
+    border-color:rgba(245,240,224,0.08);
+    transform:translateY(-2px);
+    box-shadow:0 8px 40px rgba(0,0,0,0.5);
+  }
+  .card h3 { font-size:18px; font-weight:700; margin-bottom:18px; color:var(--warm-hi); }
+  .card h4 { font-size:15px; font-weight:600; margin:22px 0 12px; color:var(--warm); }
+  .card p { color:var(--warm-mid); margin-bottom:10px; line-height:1.8; }
 
   .grid { display:grid; gap:20px; }
   .grid-2 { grid-template-columns:1fr 1fr; }
   .grid-3 { grid-template-columns:repeat(3,1fr); }
   .grid-4 { grid-template-columns:repeat(4,1fr); }
 
-  /* ----- HIGHLIGHT BOX ----- */
+  /* ----- CALLOUT ----- */
   .callout {
-    border-left:3px solid var(--gold); background:var(--gold-pale);
-    padding:18px 22px; border-radius:0 var(--radius) var(--radius) 0;
-    margin:18px 0; font-size:14px; color:var(--ink-light);
+    border-left:2px solid var(--gold); background:rgba(212,175,55,0.04);
+    padding:20px 26px; border-radius:0 var(--radius) var(--radius) 0;
+    margin:22px 0; font-size:14px; color:var(--warm);
   }
-  .callout strong { color:#8b6d2f; }
+  .callout strong { color:var(--gold); }
 
-  /* ----- STRATEGIC VISION BLOCK ----- */
+  /* ----- VISION BLOCK ----- */
   .vision-block {
-    background: var(--navy); color:#fff; border-radius:var(--radius-lg);
-    padding:48px 44px; margin-bottom:24px; position:relative; overflow:hidden;
+    background:var(--bg-card); border-radius:var(--radius);
+    padding:52px 50px; margin-bottom:28px; position:relative; overflow:hidden;
+    border: 1px solid rgba(245,240,224,0.04);
   }
   .vision-block::after {
-    content:''; position:absolute; top:-40px; right:-40px; width:200px; height:200px;
-    border-radius:50%; background:rgba(255,255,255,0.015);
+    content:''; position:absolute; top:-80px; right:-80px; width:320px; height:320px;
+    border-radius:50%; border:1px solid rgba(212,175,55,0.06);
   }
-  .vision-block h3 { font-size:20px; font-weight:600; margin-bottom:20px; color:#fff; }
-  .vision-block p { font-size:15px; opacity:0.82; line-height:1.8; margin-bottom:12px; }
-  .vision-block .highlight-text { color:var(--gold-light); font-weight:500; }
+  .vision-block::before {
+    content:''; position:absolute; bottom:-40px; left:30%; width:240px; height:240px;
+    border-radius:50%; background:rgba(212,175,55,0.02);
+  }
+  .vision-block h3 { font-size:21px; font-weight:600; margin-bottom:24px; color:var(--warm-hi); position:relative; }
+  .vision-block p { font-size:15px; color:var(--warm-mid); line-height:1.85; margin-bottom:14px; position:relative; }
+  .vision-block .highlight-text { color:var(--gold); font-weight:500; }
 
-  /* ----- THREE PILLARS ----- */
-  .pillar-row { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin:24px 0; }
+  /* ----- PILLARS ----- */
+  .pillar-row { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin:28px 0; }
   .pillar {
-    text-align:center; padding:32px 20px; background:var(--surface);
-    border-radius:var(--radius-lg); border:1px solid var(--border);
-    box-shadow:0 1px 2px rgba(0,0,0,0.03);
+    text-align:center; padding:38px 24px; background:var(--bg-card);
+    border:1px solid rgba(245,240,224,0.04); transition:all 0.4s;
+    position:relative; overflow:hidden;
   }
-  .pillar .icon { font-size:32px; margin-bottom:12px; }
-  .pillar h4 { font-size:15px; font-weight:700; margin-bottom:8px; }
-  .pillar p { font-size:13px; color:var(--slate); line-height:1.6; }
+  .pillar::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:2px;
+    background:var(--gold); transform:scaleX(0); transition:transform 0.5s;
+  }
+  .pillar:hover::before { transform:scaleX(1); }
+  .pillar:hover { background:var(--bg-card-hover); transform:translateY(-4px); border-color:rgba(245,240,224,0.08); }
+  .pillar .icon { font-size:32px; margin-bottom:16px; }
+  .pillar h4 { font-size:15px; font-weight:700; margin-bottom:10px; color:var(--warm-hi); }
+  .pillar p { font-size:13px; color:var(--warm-mid); line-height:1.7; }
 
-  /* ----- FLOW DIAGRAM ----- */
-  .flow {
-    display:flex; align-items:center; justify-content:center; gap:16px;
-    padding:28px 0; flex-wrap:wrap;
-  }
+  /* ----- FLOW ----- */
+  .flow { display:flex; align-items:center; justify-content:center; gap:12px; padding:36px 0; flex-wrap:wrap; }
   .flow-node {
-    background:var(--surface); border:1px solid var(--gold-border);
-    padding:14px 20px; border-radius:var(--radius); text-align:center;
-    font-size:14px; font-weight:600; min-width:120px;
+    background:var(--bg-card); border:1px solid var(--gold-border);
+    padding:18px 26px; text-align:center; font-size:14px; font-weight:600;
+    min-width:132px; color:var(--warm); transition:all 0.3s;
   }
-  .flow-node.accent { background:var(--gold-pale); border-color:var(--gold); color:#8b6d2f; }
-  .flow-arrow { color:var(--gold); font-size:20px; font-weight:300; }
+  .flow-node:hover { transform:translateY(-2px); border-color:var(--gold-border-hover); }
+  .flow-node.accent {
+    background:rgba(212,175,55,0.06); border-color:var(--gold);
+    color:var(--gold);
+  }
+  .flow-arrow { color:var(--gold-dim); font-size:22px; font-weight:300; }
 
   /* ----- TABLES ----- */
-  table { width:100%; border-collapse:collapse; margin:14px 0; font-size:13.5px; }
+  table { width:100%; border-collapse:separate; border-spacing:0; margin:16px 0; font-size:13.5px; }
   thead th {
-    background:var(--navy); color:#fff; padding:10px 14px; text-align:left;
-    font-weight:500; font-size:12.5px; letter-spacing:0.3px;
+    background:var(--gold-dim); color:var(--bg);
+    padding:12px 16px; text-align:left; font-weight:600; font-size:12px; letter-spacing:0.5px;
   }
   thead th:first-child { border-radius:var(--radius) 0 0 0; }
   thead th:last-child { border-radius:0 var(--radius) 0 0; }
-  tbody td { padding:10px 14px; border-bottom:1px solid var(--border); color:var(--ink-light); }
-  tbody tr:nth-child(even) { background:#fafaf8; }
+  tbody td { padding:12px 16px; border-bottom:1px solid rgba(245,240,224,0.03); color:var(--warm); }
+  tbody tr { transition:background 0.2s; }
+  tbody tr:nth-child(even) { background:rgba(245,240,224,0.01); }
+  tbody tr:hover { background:rgba(212,175,55,0.04); }
 
-  /* ----- ZERO LAYER SPOTLIGHT ----- */
+  /* ----- SPOTLIGHT ----- */
   .spotlight {
-    background:linear-gradient(135deg, var(--navy) 0%, #253545 100%);
-    color:#fff; border-radius:var(--radius-lg); padding:44px; margin-bottom:24px;
-    border:1px solid rgba(255,255,255,0.08);
+    background:var(--bg-card); border:1px solid rgba(245,240,224,0.04);
+    color:var(--warm); border-radius:var(--radius); padding:50px; margin-bottom:28px;
+    position:relative; overflow:hidden;
   }
-  .spotlight h3 { font-size:20px; font-weight:700; margin-bottom:8px; color:#fff; }
-  .spotlight .tagline { font-size:14px; color:var(--gold-light); margin-bottom:24px; }
-  .spotlight .dual { display:grid; grid-template-columns:1fr 1fr; gap:32px; }
-  .spotlight .dual h4 { font-size:15px; font-weight:600; margin-bottom:8px; color:rgba(255,255,255,0.9); }
-  .spotlight .dual p { font-size:13.5px; opacity:0.75; line-height:1.7; }
+  .spotlight::after {
+    content:''; position:absolute; top:0; right:0; width:320px; height:100%;
+    background:linear-gradient(90deg, transparent 0%, rgba(212,175,55,0.02) 100%);
+  }
+  .spotlight h3 { font-size:21px; font-weight:700; margin-bottom:12px; color:var(--warm-hi); position:relative; }
+  .spotlight .tagline { font-size:14px; color:var(--gold); margin-bottom:30px; position:relative; }
+  .spotlight .dual { display:grid; grid-template-columns:1fr 1fr; gap:40px; position:relative; }
+  .spotlight .dual h4 { font-size:15px; font-weight:600; margin-bottom:10px; color:var(--warm-hi); }
+  .spotlight .dual p { font-size:13.5px; color:var(--warm-mid); line-height:1.75; }
 
-  /* ----- KPI CARDS ----- */
-  .kpi-row { display:flex; gap:20px; margin:20px 0; }
+  /* ----- KPI ----- */
+  .kpi-row { display:flex; gap:20px; margin:28px 0; }
   .kpi {
-    flex:1; background:var(--surface); border-radius:var(--radius-lg);
-    padding:24px 20px; text-align:center; border:1px solid var(--border);
-    box-shadow:0 1px 2px rgba(0,0,0,0.03);
+    flex:1; background:var(--bg-card); padding:32px 20px; text-align:center;
+    border:1px solid rgba(245,240,224,0.04); transition:all 0.4s;
+    position:relative; overflow:hidden;
   }
-  .kpi .value { font-size:34px; font-weight:700; color:var(--ink); letter-spacing:-0.5px; }
-  .kpi .unit { font-size:15px; color:var(--slate); font-weight:400; }
-  .kpi .label { font-size:13px; color:var(--slate-light); margin-top:4px; }
-  .kpi.gold .value { color:#8b6d2f; }
+  .kpi:hover { background:var(--bg-card-hover); transform:translateY(-3px); border-color:rgba(245,240,224,0.08); }
+  .kpi .value {
+    font-size:46px; font-weight:700; color:var(--warm-hi);
+    letter-spacing:-1px; line-height:1.1;
+  }
+  .kpi .unit { font-size:20px; color:var(--warm-mid); font-weight:400; }
+  .kpi .label { font-size:13px; color:var(--warm-mid); margin-top:8px; }
+  .kpi.gold .value { color:var(--gold-bright); }
 
   /* ----- TIER CARDS ----- */
-  .tier-row { display:flex; gap:14px; margin:20px 0; }
+  .tier-row { display:flex; gap:14px; margin:28px 0; }
   .tier {
-    flex:1; text-align:center; padding:24px 14px; border-radius:var(--radius-lg);
-    background:var(--surface); border:1px solid var(--border);
-    transition:all var(--transition);
+    flex:1; text-align:center; padding:30px 16px; background:var(--bg-card);
+    border:1px solid rgba(245,240,224,0.04); transition:all 0.4s;
   }
-  .tier:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,0,0,0.08); }
-  .tier .tier-badge { font-size:11px; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:8px; font-weight:600; }
-  .tier .tier-name { font-weight:700; font-size:16px; margin-bottom:6px; }
-  .tier .tier-desc { font-size:12.5px; color:var(--slate); line-height:1.6; }
-  .tier.t1 { border-top:3px solid #b0b8c1; } .tier.t1 .tier-badge { color:#6b7580; }
-  .tier.t2 { border-top:3px solid #d4b76a; } .tier.t2 .tier-badge { color:#8b6d2f; }
-  .tier.t3 { border-top:3px solid #5a9e7e; } .tier.t3 .tier-badge { color:#3d7056; }
-  .tier.t4 { border-top:3px solid #4a7fb5; } .tier.t4 .tier-badge { color:#2e5a8a; }
+  .tier:hover { background:var(--bg-card-hover); transform:translateY(-4px); border-color:rgba(245,240,224,0.08); }
+  .tier .tier-badge { font-size:10px; letter-spacing:2px; text-transform:uppercase; margin-bottom:12px; font-weight:600; }
+  .tier .tier-name { font-weight:700; font-size:17px; margin-bottom:8px; color:var(--warm-hi); }
+  .tier .tier-desc { font-size:12px; color:var(--warm-mid); line-height:1.7; }
+  .tier.t1 { border-top:2px solid var(--warm-dim); } .tier.t1 .tier-badge { color:var(--warm-mid); }
+  .tier.t2 { border-top:2px solid var(--gold); } .tier.t2 .tier-badge { color:var(--gold-dim); }
+  .tier.t3 { border-top:2px solid var(--success); } .tier.t3 .tier-badge { color:var(--success); }
+  .tier.t4 { border-top:2px solid #60a5fa; } .tier.t4 .tier-badge { color:#60a5fa; }
 
   /* ----- TIMELINE ----- */
-  .timeline { position:relative; padding-left:28px; }
-  .timeline::before { content:''; position:absolute; left:8px; top:4px; bottom:4px; width:1px; background:var(--border); }
-  .tl-item { position:relative; margin-bottom:22px; }
-  .tl-item::before {
-    content:''; position:absolute; left:-24px; top:5px; width:9px; height:9px;
-    border-radius:50%; background:var(--navy-light); border:2px solid #fff;
-    box-shadow:0 0 0 2px var(--navy-light);
+  .timeline { position:relative; padding-left:36px; }
+  .timeline::before {
+    content:''; position:absolute; left:8px; top:4px; bottom:4px;
+    width:1px; background:rgba(245,240,224,0.06);
   }
-  .tl-item.phase-a::before { background:var(--gold); box-shadow:0 0 0 2px var(--gold); }
-  .tl-item.phase-c::before { background:var(--success); box-shadow:0 0 0 2px var(--success); }
-  .tl-item .week { font-size:11.5px; font-weight:700; color:var(--gold); letter-spacing:0.5px; }
-  .tl-item h4 { margin:2px 0 4px; font-size:14.5px; }
-  .tl-item p { font-size:13px; color:var(--slate); margin:0; }
+  .tl-item { position:relative; margin-bottom:28px; }
+  .tl-item::before {
+    content:''; position:absolute; left:-32px; top:6px; width:10px; height:10px;
+    border-radius:50%; background:var(--bg); border:2px solid var(--warm-dim);
+    transition:all 0.3s;
+  }
+  .tl-item:hover::before { transform:scale(1.3); border-color:var(--gold); }
+  .tl-item.phase-a::before { border-color:var(--gold); background:var(--gold); }
+  .tl-item.phase-c::before { border-color:var(--success); background:var(--success); }
+  .tl-item .week { font-size:11px; font-weight:700; color:var(--gold); letter-spacing:1px; }
+  .tl-item h4 { margin:4px 0 6px; font-size:15px; color:var(--warm); }
+  .tl-item p { font-size:13px; color:var(--warm-mid); margin:0; }
 
-  /* ----- ZERO CONCERN ----- */
+  /* ----- ASSURANCE ----- */
   .assurance {
     display:grid; grid-template-columns:repeat(3,1fr); gap:0;
-    border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden;
+    border:1px solid rgba(245,240,224,0.04); overflow:hidden;
   }
   .assurance > div {
-    text-align:center; padding:28px 16px; background:var(--surface);
-    border-right:1px solid var(--border);
+    text-align:center; padding:32px 20px; background:var(--bg-card);
+    border-right:1px solid rgba(245,240,224,0.04); transition:background 0.3s;
   }
   .assurance > div:last-child { border-right:none; }
-  .assurance .assure-icon { font-size:26px; margin-bottom:8px; }
-  .assurance h4 { font-size:14px; font-weight:700; margin-bottom:4px; }
-  .assurance p { font-size:12.5px; color:var(--slate); line-height:1.6; }
+  .assurance > div:hover { background:var(--bg-card-hover); }
+  .assurance .assure-icon { font-size:30px; margin-bottom:12px; }
+  .assurance h4 { font-size:14px; font-weight:700; margin-bottom:6px; color:var(--warm-hi); }
+  .assurance p { font-size:12px; color:var(--warm-mid); line-height:1.7; }
+
+  /* ----- DIVIDER ----- */
+  hr.divider {
+    border:none; height:1px;
+    background:linear-gradient(90deg, transparent, var(--gold-border), var(--gold-dim), var(--gold-border), transparent);
+    margin:64px 0;
+  }
 
   /* ----- FOOTER ----- */
   footer {
-    text-align:center; padding:44px 24px; color:var(--slate-light); font-size:12.5px;
-    border-top:1px solid var(--border); margin-top:64px;
+    text-align:center; padding:56px 24px; color:var(--warm-dim); font-size:12px;
+    border-top:1px solid rgba(245,240,224,0.03); margin-top:80px;
+    background:linear-gradient(180deg, transparent 0%, rgba(212,175,55,0.02) 100%);
   }
-
-  hr.divider { border:none; border-top:1px solid var(--border); margin:40px 0; }
 
   @media (max-width:820px) {
     .grid-2,.grid-3,.grid-4 { grid-template-columns:1fr; }
@@ -239,8 +315,11 @@
     .spotlight .dual { grid-template-columns:1fr; }
     .flow { flex-direction:column; }
     .flow-arrow { transform:rotate(90deg); }
-    .hero { padding:48px 28px 40px; }
-    .hero h1 { font-size:28px; }
+    .hero { padding:72px 28px 60px; }
+    .hero h1 { font-size:34px; }
+    .vision-block { padding:38px 28px; }
+    nav { padding:0 20px; gap:18px; }
+    nav a { font-size:11px; }
   }
 </style>
 </head>
@@ -257,10 +336,18 @@
   <a href="#execute">执行计划</a>
 </nav>
 
-<!-- ===== HERO ===== -->
 <div class="hero">
+  <div class="ring ring-1"></div><div class="ring ring-2"></div>
+  <span class="dot" style="top:12%;left:6%"></span>
+  <span class="dot" style="top:22%;left:88%"></span>
+  <span class="dot" style="top:60%;left:10%"></span>
+  <span class="dot" style="top:72%;left:92%"></span>
+  <span class="dot" style="top:42%;left:82%"></span>
+  <span class="dot" style="top:55%;left:4%"></span>
+
   <div class="overline">Strategy &amp; Execution · 2026</div>
-  <h1>广深会计运营策略规划</h1>
+  <h1>广深会计运营<span class="accent">策略规划</span></h1>
+  <div class="gold-line"></div>
   <p class="lead">
     以 <strong>「生态赋能 + 价值共生」</strong> 为核心理念<br>
     构建代账行业首个 <strong>会计KOC价值网络</strong>，打通从工具使用到商业转化的全链路
@@ -270,8 +357,7 @@
 
 <div class="container">
 
-<!-- ===== 一、战略愿景 ===== -->
-<section id="vision">
+<section id="vision" class="fade-in">
   <div class="section-head">
     <div class="num">Section 01</div>
     <h2>战略愿景与顶层逻辑</h2>
@@ -287,7 +373,6 @@
   <div class="card">
     <h3>破局点：将会计从"做账工具"升级为"价值枢纽"</h3>
     <p>我们的战略逻辑不是绕开代账机构，而是<strong>通过数智化工具和运营体系，将亿企赢的企服能力嫁接给机构</strong>，让顾问会计成为会员价值的传递者和商业转化的推动者。</p>
-
     <div class="flow">
       <div class="flow-node">会计激励 + AI辅助</div>
       <div class="flow-arrow">→</div>
@@ -297,8 +382,7 @@
       <div class="flow-arrow">→</div>
       <div class="flow-node accent">机构业务升级</div>
     </div>
-
-    <p style="text-align:center;font-size:13px;color:var(--slate-light);">短期打通价值传导路径，中期培育会计KOC网络，长期实现平台-机构-企业三方价值闭环</p>
+    <p style="text-align:center;font-size:13px;color:var(--warm-lo);">短期打通价值传导路径，中期培育会计KOC网络，长期实现平台-机构-企业三方价值闭环</p>
   </div>
 
   <div class="pillar-row">
@@ -327,8 +411,7 @@
   </div>
 </section>
 
-<!-- ===== 二、财赢小程序：价值底座 ===== -->
-<section id="platform">
+<section id="platform" class="fade-in">
   <div class="section-head">
     <div class="num">Section 02</div>
     <h2>财赢小程序 —— 会计价值传递的核心枢纽</h2>
@@ -352,28 +435,27 @@
 
   <div class="card">
     <h3>财赢小程序在会计运营中的战略角色</h3>
-    <div class="grid grid-3" style="margin-top:12px;">
-      <div style="text-align:center;padding:20px 12px;">
-        <div style="font-size:28px;margin-bottom:8px;">🔗</div>
-        <h4 style="font-size:14px;">价值交付工具</h4>
-        <p style="font-size:13px;color:var(--slate);">会计通过平台向企业推送标准化服务报告、风险提示、合规建议，让专业服务"看得见"</p>
+    <div class="grid grid-3" style="margin-top:14px;">
+      <div style="text-align:center;padding:24px 14px;">
+        <div style="font-size:32px;margin-bottom:12px;">🔗</div>
+        <h4 style="font-size:14px;color:var(--warm-hi);">价值交付工具</h4>
+        <p style="font-size:13px;color:var(--warm-lo);">会计通过平台向企业推送标准化服务报告、风险提示、合规建议，让专业服务"看得见"</p>
       </div>
-      <div style="text-align:center;padding:20px 12px;">
-        <div style="font-size:28px;margin-bottom:8px;">📊</div>
-        <h4 style="font-size:14px;">行为激励载体</h4>
-        <p style="font-size:13px;color:var(--slate);">在平台内嵌行为激励入口、领奖入口、下单入口，形成"使用-激励-转化"的闭环</p>
+      <div style="text-align:center;padding:24px 14px;">
+        <div style="font-size:32px;margin-bottom:12px;">📊</div>
+        <h4 style="font-size:14px;color:var(--warm-hi);">行为激励载体</h4>
+        <p style="font-size:13px;color:var(--warm-lo);">在平台内嵌行为激励入口、领奖入口、下单入口，形成"使用-激励-转化"的闭环</p>
       </div>
-      <div style="text-align:center;padding:20px 12px;">
-        <div style="font-size:28px;margin-bottom:8px;">🚀</div>
-        <h4 style="font-size:14px;">增长飞轮引擎</h4>
-        <p style="font-size:13px;color:var(--slate);">企业越多使用，会计越多触达，数据越丰富，转化越精准——形成自增长的飞轮效应</p>
+      <div style="text-align:center;padding:24px 14px;">
+        <div style="font-size:32px;margin-bottom:12px;">🚀</div>
+        <h4 style="font-size:14px;color:var(--warm-hi);">增长飞轮引擎</h4>
+        <p style="font-size:13px;color:var(--warm-lo);">企业越多使用，会计越多触达，数据越丰富，转化越精准——形成自增长的飞轮效应</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== 三、会员体系重构 ===== -->
-<section id="member">
+<section id="member" class="fade-in">
   <div class="section-head">
     <div class="num">Section 03</div>
     <h2>会员体系重构：以价值分层驱动精准转化</h2>
@@ -382,21 +464,21 @@
 
   <div class="card">
     <h3>三大设计原则</h3>
-    <div class="grid grid-3" style="margin-top:12px;">
-      <div style="text-align:center;padding:16px;">
-        <div style="font-size:20px;color:var(--gold);font-weight:700;margin-bottom:6px;">01</div>
-        <h4 style="font-size:14px;">会计&企业双向联动</h4>
-        <p style="font-size:13px;color:var(--slate);">以会计端操作作为价值传递起点，企业端精准感知服务价值，形成双向正向反馈</p>
+    <div class="grid grid-3" style="margin-top:14px;">
+      <div style="text-align:center;padding:20px;">
+        <div style="font-size:24px;color:var(--gold);font-weight:700;margin-bottom:10px;">01</div>
+        <h4 style="font-size:14px;color:var(--warm-hi);">会计&企业双向联动</h4>
+        <p style="font-size:13px;color:var(--warm-lo);">以会计端操作作为价值传递起点，企业端精准感知服务价值，形成双向正向反馈</p>
       </div>
-      <div style="text-align:center;padding:16px;">
-        <div style="font-size:20px;color:var(--gold);font-weight:700;margin-bottom:6px;">02</div>
-        <h4 style="font-size:14px;">价值导向分层</h4>
-        <p style="font-size:13px;color:var(--slate);">围绕企业实际账税需求，按发展阶段设置从基础账到合规账的清晰价值阶梯</p>
+      <div style="text-align:center;padding:20px;">
+        <div style="font-size:24px;color:var(--gold);font-weight:700;margin-bottom:10px;">02</div>
+        <h4 style="font-size:14px;color:var(--warm-hi);">价值导向分层</h4>
+        <p style="font-size:13px;color:var(--warm-lo);">围绕企业实际账税需求，按发展阶段设置从基础账到合规账的清晰价值阶梯</p>
       </div>
-      <div style="text-align:center;padding:16px;">
-        <div style="font-size:20px;color:var(--gold);font-weight:700;margin-bottom:6px;">03</div>
-        <h4 style="font-size:14px;">高频刚需驱动</h4>
-        <p style="font-size:13px;color:var(--slate);">聚焦账税操作、发票开具、风险查询等高频场景植入会员功能，提升工具活跃</p>
+      <div style="text-align:center;padding:20px;">
+        <div style="font-size:24px;color:var(--gold);font-weight:700;margin-bottom:10px;">03</div>
+        <h4 style="font-size:14px;color:var(--warm-hi);">高频刚需驱动</h4>
+        <p style="font-size:13px;color:var(--warm-lo);">聚焦账税操作、发票开具、风险查询等高频场景植入会员功能，提升工具活跃</p>
       </div>
     </div>
   </div>
@@ -406,32 +488,16 @@
     <table>
       <thead><tr><th style="width:22%;">层级</th><th style="width:22%;">定位</th><th>核心价值</th><th style="width:22%;">目标客群</th></tr></thead>
       <tbody>
-        <tr>
-          <td><strong>基础账 · 入门级</strong></td>
-          <td>初级财税数字化</td>
-          <td>看账阅税、发票开具、基础查询</td>
-          <td>初创/小微企业</td>
-        </tr>
-        <tr>
-          <td><strong>基础账 · 标准级</strong></td>
-          <td>标准财税管理</td>
-          <td>完整账税服务 + AI咨询 + 合规风险预警</td>
-          <td>成长型企业</td>
-        </tr>
-        <tr>
-          <td><strong>合规账 · 基础合规</strong></td>
-          <td>合规经营升级</td>
-          <td>合规账务 + 经营分析 + 专项服务对接</td>
-          <td>有合规刚需的成熟企业</td>
-        </tr>
+        <tr><td><strong>基础账 · 入门级</strong></td><td>初级财税数字化</td><td>看账阅税、发票开具、基础查询</td><td>初创/小微企业</td></tr>
+        <tr><td><strong>基础账 · 标准级</strong></td><td>标准财税管理</td><td>完整账税服务 + AI咨询 + 合规风险预警</td><td>成长型企业</td></tr>
+        <tr><td><strong>合规账 · 基础合规</strong></td><td>合规经营升级</td><td>合规账务 + 经营分析 + 专项服务对接</td><td>有合规刚需的成熟企业</td></tr>
       </tbody>
     </table>
-    <p style="font-size:13px;color:var(--slate-light);">层级之间存在清晰的升级路径：入门体验 → 标准依赖 → 合规深入，逐层提升客单与粘性。</p>
+    <p style="font-size:13px;color:var(--warm-lo);">层级之间存在清晰的升级路径：入门体验 → 标准依赖 → 合规深入，逐层提升客单与粘性。</p>
   </div>
 </section>
 
-<!-- ===== 四、会计运营体系 ===== -->
-<section id="incentive">
+<section id="incentive" class="fade-in">
   <div class="section-head">
     <div class="num">Section 04</div>
     <h2>会计运营体系：行为激励 × 成长体系</h2>
@@ -443,8 +509,8 @@
     <table>
       <thead><tr><th>激励活动</th><th>时间</th><th>收入（元）</th><th>投入（元）</th><th>投产比</th></tr></thead>
       <tbody>
-        <tr><td>续费激励活动</td><td>2025.12.15–12.30</td><td>545,040</td><td>37,318</td><td><strong style="color:var(--gold);">1 : 13.6</strong></td></tr>
-        <tr><td>纯非纳入激励活动</td><td>2026.3.19–3.30</td><td>124,300</td><td>4,605</td><td><strong style="color:var(--gold);">1 : 26.0</strong></td></tr>
+        <tr><td>续费激励活动</td><td>2025.12.15–12.30</td><td>545,040</td><td>37,318</td><td><strong style="color:var(--gold-bright);">1 : 13.6</strong></td></tr>
+        <tr><td>纯非纳入激励活动</td><td>2026.3.19–3.30</td><td>124,300</td><td>4,605</td><td><strong style="color:var(--gold-bright);">1 : 26.0</strong></td></tr>
       </tbody>
     </table>
     <div class="callout">
@@ -462,39 +528,38 @@
         <tr><td><strong>转化激励</strong></td><td>推动续费与纯非纳入</td><td>现金 + 积分 + 增值权益</td><td>完成付费与价值认可</td></tr>
       </tbody>
     </table>
-    <p style="font-size:13px;color:var(--slate-light);">排名前列的会计额外获得：专业培训、技能认证、求职推荐等职业成长权益。</p>
+    <p style="font-size:13px;color:var(--warm-lo);">排名前列的会计额外获得：专业培训、技能认证、求职推荐等职业成长权益。</p>
   </div>
 
   <div class="card">
     <h3>四大高频操作触点</h3>
-    <p style="font-size:13px;color:var(--slate);margin-bottom:12px;">将会员工具植入会计日常服务全流程，让工具成为工作"必需品"而非"附加品"。</p>
+    <p style="font-size:13px;color:var(--warm-lo);margin-bottom:14px;">将会员工具植入会计日常服务全流程，让工具成为工作"必需品"而非"附加品"。</p>
     <div class="grid grid-4">
-      <div style="text-align:center;padding:14px;">
-        <div style="width:40px;height:40px;border-radius:50%;background:var(--gold-pale);color:var(--gold);display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;margin-bottom:8px;">1</div>
-        <h4 style="font-size:13px;">客户识别与成交</h4>
-        <p style="font-size:12px;color:var(--slate-light);">新客纳入激励引导首购</p>
+      <div style="text-align:center;padding:18px;">
+        <div style="width:46px;height:46px;border-radius:50%;background:rgba(212,175,55,0.1);color:var(--gold);display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:17px;margin-bottom:12px;border:1px solid var(--gold-border);">1</div>
+        <h4 style="font-size:13px;color:var(--warm-hi);">客户识别与成交</h4>
+        <p style="font-size:11px;color:var(--warm-lo);">新客纳入激励引导首购</p>
       </div>
-      <div style="text-align:center;padding:14px;">
-        <div style="width:40px;height:40px;border-radius:50%;background:var(--gold-pale);color:var(--gold);display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;margin-bottom:8px;">2</div>
-        <h4 style="font-size:13px;">服务启动</h4>
-        <p style="font-size:12px;color:var(--slate-light);">财赢小程序开通&初始化</p>
+      <div style="text-align:center;padding:18px;">
+        <div style="width:46px;height:46px;border-radius:50%;background:rgba(212,175,55,0.1);color:var(--gold);display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:17px;margin-bottom:12px;border:1px solid var(--gold-border);">2</div>
+        <h4 style="font-size:13px;color:var(--warm-hi);">服务启动</h4>
+        <p style="font-size:11px;color:var(--warm-lo);">财赢小程序开通&初始化</p>
       </div>
-      <div style="text-align:center;padding:14px;">
-        <div style="width:40px;height:40px;border-radius:50%;background:var(--gold-pale);color:var(--gold);display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;margin-bottom:8px;">3</div>
-        <h4 style="font-size:13px;">日常服务交付</h4>
-        <p style="font-size:12px;color:var(--slate-light);">服务结果+风险自动推送</p>
+      <div style="text-align:center;padding:18px;">
+        <div style="width:46px;height:46px;border-radius:50%;background:rgba(212,175,55,0.1);color:var(--gold);display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:17px;margin-bottom:12px;border:1px solid var(--gold-border);">3</div>
+        <h4 style="font-size:13px;color:var(--warm-hi);">日常服务交付</h4>
+        <p style="font-size:11px;color:var(--warm-lo);">服务结果+风险自动推送</p>
       </div>
-      <div style="text-align:center;padding:14px;">
-        <div style="width:40px;height:40px;border-radius:50%;background:var(--gold-pale);color:var(--gold);display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;margin-bottom:8px;">4</div>
-        <h4 style="font-size:13px;">续费与增购</h4>
-        <p style="font-size:12px;color:var(--slate-light);">AI提醒 + 会计自主下单</p>
+      <div style="text-align:center;padding:18px;">
+        <div style="width:46px;height:46px;border-radius:50%;background:rgba(212,175,55,0.1);color:var(--gold);display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:17px;margin-bottom:12px;border:1px solid var(--gold-border);">4</div>
+        <h4 style="font-size:13px;color:var(--warm-hi);">续费与增购</h4>
+        <p style="font-size:11px;color:var(--warm-lo);">AI提醒 + 会计自主下单</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== 五、AI顾问 ===== -->
-<section id="ai">
+<section id="ai" class="fade-in">
   <div class="section-head">
     <div class="num">Section 05</div>
     <h2>AI 顾问：让会计的服务价值"被看见"</h2>
@@ -516,19 +581,18 @@
     </div>
     <div class="card">
       <h3>推广策略</h3>
-      <div style="background:var(--gold-pale);border-radius:var(--radius);padding:18px 20px;margin-bottom:16px;">
-        <h4 style="margin-top:0;font-size:14px;color:#8b6d2f;">优先试点机构画像</h4>
-        <p style="font-size:13px;color:var(--ink-light);">存量会员 ≥ 50 户 &nbsp;+&nbsp; 可纳入空间 ≥ 10 万元 &nbsp;+&nbsp; 续费率 ≥ 50%</p>
+      <div style="background:rgba(212,175,55,0.05);padding:22px 24px;margin-bottom:20px;border:1px solid var(--gold-border);">
+        <h4 style="margin-top:0;font-size:14px;color:var(--gold);">优先试点机构画像</h4>
+        <p style="font-size:13px;color:var(--warm-mid);">存量会员 ≥ 50 户 &nbsp;+&nbsp; 可纳入空间 ≥ 10 万元 &nbsp;+&nbsp; 续费率 ≥ 50%</p>
       </div>
-      <p style="font-size:13px;">根据机构具体情况制定上线节奏，重点机构争取全部配置。大区计划增设<strong> 1 名兼具产品与用户运营能力的运营岗</strong>，专项推动 AI 顾问落地。</p>
+      <p style="font-size:13px;color:var(--warm-mid);">根据机构具体情况制定上线节奏，重点机构争取全部配置。大区计划增设<strong> 1 名兼具产品与用户运营能力的运营岗</strong>，专项推动 AI 顾问落地。</p>
     </div>
   </div>
 </section>
 
 <hr class="divider">
 
-<!-- ===== 六、试点方案 ===== -->
-<section id="pilot">
+<section id="pilot" class="fade-in">
   <div class="section-head">
     <div class="num">Section 06</div>
     <h2>2个月试点：跑通"赋能 + 激励 + 机构共赢"闭环</h2>
@@ -547,18 +611,17 @@
     <div class="grid grid-2" style="margin-top:8px;">
       <div>
         <h4>机构筛选标准</h4>
-        <p style="font-size:13px;">选取 <strong>15–20 家</strong>试点机构，优先会员续费近三个月到期多、东莞续费率 50% 以上的机构。每家推荐 <strong>3–5 名</strong>会计参与，预计报名总数 <strong>60–80 人</strong>。</p>
+        <p style="font-size:13px;color:var(--warm-mid);">选取 <strong>15–20 家</strong>试点机构，优先会员续费近三个月到期多、东莞续费率 50% 以上的机构。每家推荐 <strong>3–5 名</strong>会计参与，预计报名总数 <strong>60–80 人</strong>。</p>
       </div>
       <div>
         <h4>转化率预期</h4>
-        <p style="font-size:13px;"><strong>财税先锋</strong>：目标转化率 80% 以上（60人中达成50人），门槛相对较低。<br><strong>增长之星</strong>：目标转化率 8–10%（60人中达成5人），需较高成长指和带教能力。</p>
+        <p style="font-size:13px;color:var(--warm-mid);"><strong>财税先锋</strong>：目标转化率 80% 以上（60人中达成50人），门槛相对较低。<br><strong>增长之星</strong>：目标转化率 8–10%（60人中达成5人），需较高成长指和带教能力。</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== 七、KOC等级 ===== -->
-<section>
+<section class="fade-in">
   <div class="section-head">
     <div class="num">Section 07</div>
     <h2>KOC 四级成长体系</h2>
@@ -566,26 +629,10 @@
   </div>
 
   <div class="tier-row">
-    <div class="tier t1">
-      <div class="tier-badge">Lv.1 · 银徽章</div>
-      <div class="tier-name">财税先锋</div>
-      <div class="tier-desc">能独立完成会员成交与促活<br>成长值 ≥ 10,000<br>专属银徽章 + 认证证书</div>
-    </div>
-    <div class="tier t2">
-      <div class="tier-badge">Lv.2 · 镀金徽章</div>
-      <div class="tier-name">增长之星</div>
-      <div class="tier-desc">能带动身边会计做转化续费<br>成长值 ≥ 20,000<br>镀金徽章 + 公开表彰</div>
-    </div>
-    <div class="tier t3">
-      <div class="tier-badge">Lv.3 · 进阶培养</div>
-      <div class="tier-name">合规标兵</div>
-      <div class="tier-desc">具备专项/管家服务成交能力<br>高阶训练营进阶课程<br>进入核心 KOL 培养池</div>
-    </div>
-    <div class="tier t4">
-      <div class="tier-badge">Lv.4 · 最高荣誉</div>
-      <div class="tier-name">区域标杆</div>
-      <div class="tier-desc">有专项成交且愿复制经验<br>年度评选产生<br>最高荣誉 + 现金奖励</div>
-    </div>
+    <div class="tier t1"><div class="tier-badge">Lv.1 · 银徽章</div><div class="tier-name">财税先锋</div><div class="tier-desc">能独立完成会员成交与促活<br>成长值 ≥ 10,000<br>专属银徽章 + 认证证书</div></div>
+    <div class="tier t2"><div class="tier-badge">Lv.2 · 镀金徽章</div><div class="tier-name">增长之星</div><div class="tier-desc">能带动身边会计做转化续费<br>成长值 ≥ 20,000<br>镀金徽章 + 公开表彰</div></div>
+    <div class="tier t3"><div class="tier-badge">Lv.3 · 进阶培养</div><div class="tier-name">合规标兵</div><div class="tier-desc">具备专项/管家服务成交能力<br>高阶训练营进阶课程<br>进入核心 KOL 培养池</div></div>
+    <div class="tier t4"><div class="tier-badge">Lv.4 · 最高荣誉</div><div class="tier-name">区域标杆</div><div class="tier-desc">有专项成交且愿复制经验<br>年度评选产生<br>最高荣誉 + 现金奖励</div></div>
   </div>
 
   <div class="card">
@@ -619,21 +666,20 @@
   <div class="grid grid-3">
     <div class="card" style="text-align:center;">
       <h4 style="margin-top:0;font-size:15px;">赋能：敢开口、会沟通</h4>
-      <p style="font-size:13px;">基础包 → 进阶包 → 高阶训练营，三级递进课程体系，解决会计"不敢开口、不会沟通"的痛点</p>
+      <p style="font-size:13px;color:var(--warm-lo);">基础包 → 进阶包 → 高阶训练营，三级递进课程体系，解决会计"不敢开口、不会沟通"的痛点</p>
     </div>
     <div class="card" style="text-align:center;">
       <h4 style="margin-top:0;font-size:15px;">工具：有抓手、能交付</h4>
-      <p style="font-size:13px;">AI 顾问 + 财赢小程序 + 会员工具，让会计每次服务动作都能产生企业可感知的价值交付物</p>
+      <p style="font-size:13px;color:var(--warm-lo);">AI 顾问 + 财赢小程序 + 会员工具，让会计每次服务动作都能产生企业可感知的价值交付物</p>
     </div>
     <div class="card" style="text-align:center;">
       <h4 style="margin-top:0;font-size:15px;">激励：有动力、有回报</h4>
-      <p style="font-size:13px;">即时红包 + 积分兑换 + 徽章荣誉 + 晋升通道，多劳多得，让会计愿意参与、持续参与</p>
+      <p style="font-size:13px;color:var(--warm-lo);">即时红包 + 积分兑换 + 徽章荣誉 + 晋升通道，多劳多得，让会计愿意参与、持续参与</p>
     </div>
   </div>
 </section>
 
-<!-- ===== 八、机构激励 ===== -->
-<section>
+<section class="fade-in">
   <div class="section-head">
     <div class="num">Section 08</div>
     <h2>机构激励与信任保障</h2>
@@ -651,23 +697,23 @@
           <tr><td><strong>年度最佳合作伙伴</strong></td><td>1,000元 + 奖杯</td><td>年度KOL综合表现TOP3</td></tr>
         </tbody>
       </table>
-      <p style="font-size:12px;color:var(--slate-light);margin-top:8px;">试点专项：培养出1名增长之星的机构，额外获得 1个月会员试用 + 品牌徽章 + 2个训练营名额。</p>
+      <p style="font-size:12px;color:var(--warm-lo);margin-top:8px;">试点专项：培养出1名增长之星的机构，额外获得 1个月会员试用 + 品牌徽章 + 2个训练营名额。</p>
     </div>
     <div class="card">
       <h3 style="color:var(--success);">"零顾虑"合作承诺</h3>
       <div class="assurance" style="margin-top:12px;">
         <div>
-          <div class="assure-icon" style="color:var(--navy-light);">◈</div>
+          <div class="assure-icon">◈</div>
           <h4>员工不挖角</h4>
           <p>员工归属机构不变<br>离职自动终止KOC资格</p>
         </div>
         <div>
-          <div class="assure-icon" style="color:var(--navy-light);">◈</div>
+          <div class="assure-icon">◈</div>
           <h4>客户不抢走</h4>
           <p>所有服务以机构名义交付<br>不单独联系企业</p>
         </div>
         <div>
-          <div class="assure-icon" style="color:var(--navy-light);">◈</div>
+          <div class="assure-icon">◈</div>
           <h4>精力不占用</h4>
           <p>日常任务每天仅需5分钟<br>赋能课程即工作技能</p>
         </div>
@@ -676,8 +722,7 @@
   </div>
 </section>
 
-<!-- ===== 九、执行计划 ===== -->
-<section id="execute">
+<section id="execute" class="fade-in">
   <div class="section-head">
     <div class="num">Section 09</div>
     <h2>8周试点执行计划</h2>
@@ -686,47 +731,18 @@
 
   <div class="card">
     <div class="timeline">
-      <div class="tl-item phase-a">
-        <div class="week">W1–W2 · 筹备期</div>
-        <h4>机构筛选与启动部署</h4>
-        <p>筛选 15–20 家试点机构并完成合作确认；每家推荐 3–5 名会计；建立"财税先锋培养大群"；线上启动会发布等级制度、成长指规则及统计表格。</p>
-      </div>
-      <div class="tl-item">
-        <div class="week">W3 · 运营启动</div>
-        <h4>建群 + 工具开通准备</h4>
-        <p>群启动仪式；线下完成 AI 顾问及财赢小程序开通的准备工作沟通。</p>
-      </div>
-      <div class="tl-item">
-        <div class="week">W4 · 培训赋能</div>
-        <h4>基础包课程集约培训</h4>
-        <p>东莞、深圳两个区域分别开展基础包课程启动及培训。</p>
-      </div>
-      <div class="tl-item">
-        <div class="week">W5 · 激励激活</div>
-        <h4>"开单有奖" + "企业促活挑战"</h4>
-        <p>启动开单有奖活动（成交额外送积分）；发起企业促活挑战（每促活 1 家额外奖积分）。</p>
-      </div>
-      <div class="tl-item">
-        <div class="week">W6 · 中期冲刺</div>
-        <h4>数据盘点 + 1 对 1 辅导</h4>
-        <p>对成长指接近 20,000 分的潜力会计进行 1 对 1 冲刺辅导。</p>
-      </div>
-      <div class="tl-item">
-        <div class="week">W7–W8 · 冲刺期</div>
-        <h4>冲刺增长之星</h4>
-        <p>持续推进任务；组织线上功能应用挑战；每周公布成长指榜单和已达标名单。</p>
-      </div>
-      <div class="tl-item phase-c">
-        <div class="week">W9–W10 · 复盘收尾</div>
-        <h4>核算认证 + 总结复制</h4>
-        <p>最终数据核算，认证"财税先锋"、"增长之星"；发放奖章、证书、机构奖励；输出《试点复盘报告》；召开线上总结会，启动规模化复制规划。</p>
-      </div>
+      <div class="tl-item phase-a"><div class="week">W1–W2 · 筹备期</div><h4>机构筛选与启动部署</h4><p>筛选 15–20 家试点机构并完成合作确认；每家推荐 3–5 名会计；建立"财税先锋培养大群"；线上启动会发布等级制度、成长指规则及统计表格。</p></div>
+      <div class="tl-item"><div class="week">W3 · 运营启动</div><h4>建群 + 工具开通准备</h4><p>群启动仪式；线下完成 AI 顾问及财赢小程序开通的准备工作沟通。</p></div>
+      <div class="tl-item"><div class="week">W4 · 培训赋能</div><h4>基础包课程集约培训</h4><p>东莞、深圳两个区域分别开展基础包课程启动及培训。</p></div>
+      <div class="tl-item"><div class="week">W5 · 激励激活</div><h4>"开单有奖" + "企业促活挑战"</h4><p>启动开单有奖活动（成交额外送积分）；发起企业促活挑战（每促活 1 家额外奖积分）。</p></div>
+      <div class="tl-item"><div class="week">W6 · 中期冲刺</div><h4>数据盘点 + 1 对 1 辅导</h4><p>对成长指接近 20,000 分的潜力会计进行 1 对 1 冲刺辅导。</p></div>
+      <div class="tl-item"><div class="week">W7–W8 · 冲刺期</div><h4>冲刺增长之星</h4><p>持续推进任务；组织线上功能应用挑战；每周公布成长指榜单和已达标名单。</p></div>
+      <div class="tl-item phase-c"><div class="week">W9–W10 · 复盘收尾</div><h4>核算认证 + 总结复制</h4><p>最终数据核算，认证"财税先锋"、"增长之星"；发放奖章、证书、机构奖励；输出《试点复盘报告》；召开线上总结会，启动规模化复制规划。</p></div>
     </div>
   </div>
 </section>
 
-<!-- ===== 十、预算与风险 ===== -->
-<section>
+<section class="fade-in">
   <div class="section-head">
     <div class="num">Section 10</div>
     <h2>试点预算与风险管控</h2>
@@ -743,7 +759,7 @@
           <tr><td>线下活动（深圳+东莞各1场，约30人/场）</td><td style="text-align:right;">1,000</td></tr>
           <tr><td>内部专项激励（讲师/运营补贴）</td><td style="text-align:right;">5,000</td></tr>
           <tr><td>机动预算</td><td style="text-align:right;">2,000</td></tr>
-          <tr style="background:var(--gold-pale);font-weight:700;"><td>合计</td><td style="text-align:right;color:#8b6d2f;">31,000</td></tr>
+          <tr style="background:rgba(212,175,55,0.08);font-weight:700;"><td>合计</td><td style="text-align:right;color:var(--gold-bright);">31,000</td></tr>
         </tbody>
       </table>
     </div>
@@ -762,8 +778,7 @@
   </div>
 </section>
 
-<!-- ===== 十一、成功标志与路线图 ===== -->
-<section>
+<section class="fade-in">
   <div class="section-head">
     <div class="num">Section 11</div>
     <h2>成功标志与规模化路径</h2>
@@ -771,9 +786,9 @@
   </div>
 
   <div class="grid grid-2">
-    <div class="card" style="border-left:3px solid var(--success);">
+    <div class="card" style="border-left:2px solid var(--success);">
       <h3 style="color:var(--success);">试点成功的五个标志</h3>
-      <div style="font-size:14px;line-height:2.2;padding-left:8px;">
+      <div style="font-size:14px;line-height:2.4;padding-left:8px;color:var(--warm-mid);">
         <p style="margin:0;">✓ 认证"财税先锋" ≥ 50 人，"增长之星" ≥ 5 人</p>
         <p style="margin:0;">✓ 至少 3 家机构获得"增长之星"专项奖励</p>
         <p style="margin:0;">✓ 形成标准化 SOP（含会计筛选、成长指任务、机构激励、老板沟通话术）</p>
@@ -781,42 +796,51 @@
         <p style="margin:0;">✓ 沉淀可复制的机构画像与会计画像</p>
       </div>
     </div>
-    <div class="card" style="border-left:3px solid var(--gold);">
-      <h3 style="color:#8b6d2f;">三步走路线图</h3>
+    <div class="card" style="border-left:2px solid var(--gold);">
+      <h3 style="color:var(--gold);">三步走路线图</h3>
       <div style="padding:4px 0;">
-        <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:18px;">
-          <div style="background:var(--gold);color:#fff;padding:4px 12px;border-radius:3px;font-size:12px;font-weight:600;white-space:nowrap;">Phase 1</div>
-          <div style="font-size:14px;"><strong>试点验证</strong>（2个月）<br><span style="font-size:13px;color:var(--slate);">深圳/东莞/中山，跑通模式，输出SOP</span></div>
+        <div style="display:flex;align-items:flex-start;gap:14px;margin-bottom:22px;">
+          <div style="background:var(--gold);color:var(--bg);padding:6px 16px;font-size:12px;font-weight:700;white-space:nowrap;">Phase 1</div>
+          <div style="font-size:14px;color:var(--warm-hi);"><strong>试点验证</strong>（2个月）<br><span style="font-size:13px;color:var(--warm-lo);">深圳/东莞/中山，跑通模式，输出SOP</span></div>
         </div>
-        <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:18px;">
-          <div style="background:var(--navy-light);color:#fff;padding:4px 12px;border-radius:3px;font-size:12px;font-weight:600;white-space:nowrap;">Phase 2</div>
-          <div style="font-size:14px;"><strong>城市复制</strong>（Q3–Q4）<br><span style="font-size:13px;color:var(--slate);">发布《KOC运营2.0》，扩展至中山/广州/佛山</span></div>
+        <div style="display:flex;align-items:flex-start;gap:14px;margin-bottom:22px;">
+          <div style="background:var(--warm-dim);color:var(--warm-hi);padding:6px 16px;font-size:12px;font-weight:600;white-space:nowrap;">Phase 2</div>
+          <div style="font-size:14px;color:var(--warm-hi);"><strong>城市复制</strong>（Q3–Q4）<br><span style="font-size:13px;color:var(--warm-lo);">发布《KOC运营2.0》，扩展至中山/广州/佛山</span></div>
         </div>
-        <div style="display:flex;align-items:flex-start;gap:12px;">
-          <div style="background:var(--navy);color:#fff;padding:4px 12px;border-radius:3px;font-size:12px;font-weight:600;white-space:nowrap;">Phase 3</div>
-          <div style="font-size:14px;"><strong>规模化推进</strong>（2027）<br><span style="font-size:13px;color:var(--slate);">向年度目标 1,000 名 KOC 迈进，构建广深会计价值网络</span></div>
+        <div style="display:flex;align-items:flex-start;gap:14px;">
+          <div style="background:var(--warm-lo);color:var(--bg);padding:6px 16px;font-size:12px;font-weight:600;white-space:nowrap;">Phase 3</div>
+          <div style="font-size:14px;color:var(--warm-hi);"><strong>规模化推进</strong>（2027）<br><span style="font-size:13px;color:var(--warm-lo);">向年度目标 1,000 名 KOC 迈进，构建广深会计价值网络</span></div>
         </div>
       </div>
     </div>
   </div>
 
-  <div style="text-align:center;padding:36px 0 16px;font-size:15px;color:var(--navy);font-weight:500;line-height:1.8;">
-    <p style="margin:0;opacity:0.8;">长期愿景</p>
-    <p style="margin:8px 0 0;font-size:18px;font-weight:600;letter-spacing:0.5px;">
+  <div style="text-align:center;padding:48px 0 28px;font-size:15px;line-height:1.8;">
+    <p style="margin:0;color:var(--warm-dim);font-size:13px;letter-spacing:1px;">长期愿景</p>
+    <p style="margin:12px 0 0;font-size:18px;font-weight:600;letter-spacing:0.5px;color:var(--warm);">
       培育一批具备新技能、新思维的新型财税从业者<br>
       使其成长为亿企赢的<strong style="color:var(--gold);">商业伙伴</strong>
     </p>
-    <p style="font-size:13px;color:var(--slate);margin-top:8px;">
+    <p style="font-size:13px;color:var(--warm-lo);margin-top:10px;">
       实现从业者职业升维 · 企业财税合规增效 · 平台生态共赢<br>三重商业价值闭环
     </p>
   </div>
 </section>
 
-</div><!-- .container -->
+</div>
 
 <footer>
   <p>亿企赢 · 广深大区 ｜ 会计运营策略规划 ｜ 2026年6月</p>
 </footer>
+
+<script>
+(function() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+})();
+</script>
 
 </body>
 </html>
